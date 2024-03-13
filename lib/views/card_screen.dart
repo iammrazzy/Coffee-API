@@ -294,7 +294,7 @@ class CardScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Total Items: ${_cafeController.cartList.length}x',
+                                'Total Items: ${_cafeController.cartList.length}',
                                 style: GoogleFonts.kantumruyPro(
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold,
