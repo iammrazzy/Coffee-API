@@ -79,20 +79,42 @@ class CoffeeDetailScreen extends StatelessWidget {
                                               ),
                                             ),
                                                               
-                                            // save image
-                                            CircleAvatar(
-                                              backgroundColor: Colors.white,
-                                              child: IconButton(
-                                                onPressed: (){
-                                                  _cafeController.saveImage(cafe.imageUrl.toString());
-                                                },
-                                                icon: _cafeController.isLoading
-                                                ? CircularProgressIndicator.adaptive()
-                                                : Icon(
-                                                  Icons.save_alt_outlined,
-                                                  color: Theme.of(context).primaryColor,
+                                            // save & share image
+                                            Row(
+                                              children: [
+
+                                                // save image
+                                                CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  child: IconButton(
+                                                    onPressed: (){
+                                                      _cafeController.saveImage(cafe.imageUrl.toString());
+                                                    },
+                                                    icon: _cafeController.isLoading
+                                                    ? CircularProgressIndicator.adaptive()
+                                                    : Icon(
+                                                      Icons.save_alt_outlined,
+                                                      color: Theme.of(context).primaryColor,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+
+                                                const SizedBox(width: 10.0),
+
+                                                // share image url
+                                                CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  child: IconButton(
+                                                    onPressed: (){
+                                                      _cafeController.shareImage(cafe.imageUrl.toString());
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.share,
+                                                      color: Theme.of(context).primaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),

@@ -288,6 +288,29 @@ class CardScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Column(
                         children: [
+                          // total items
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Total Items: ${_cafeController.cartList.length}x',
+                                style: GoogleFonts.kantumruyPro(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              const SizedBox(width: 15.0),
+                              Text(
+                                '────────',
+                                style: GoogleFonts.kantumruyPro(
+                                  fontSize: 17.0,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
                           // total qty
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,7 +326,7 @@ class CardScreen extends StatelessWidget {
                               ),
                               const SizedBox(width: 15.0),
                               Text(
-                                '────────',
+                                '─────────',
                                 style: GoogleFonts.kantumruyPro(
                                   fontSize: 17.0,
                                   color: Theme.of(context).primaryColor,

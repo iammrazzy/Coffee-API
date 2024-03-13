@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CoffeeController extends GetxController {
   final _apiService = APIService();
@@ -71,6 +72,13 @@ class CoffeeController extends GetxController {
       isLoading = false;
       update();
     }
+  }
+
+  // share cafe image URL
+  void shareImage(String imageURL)async{
+    await Share.shareUri(
+      Uri.parse(imageURL),
+    );
   }
 
   // show message
