@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_view/photo_view.dart';
 
 class CoffeeScreen extends StatelessWidget {
   CoffeeScreen({Key? key}) : super(key: key);
@@ -355,39 +356,104 @@ class CoffeeScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     // image
-                                    SizedBox(
-                                      height: 170.0,
-                                      width: 110.0,
-                                      child: CachedNetworkImage(
-                                        imageUrl: cafe.imageUrl ??_coffeeController.noImage,
-                                        imageBuilder: (context, imageProvider) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:BorderRadius.circular(10.0),
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: imageProvider,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(()=> Stack(
+                                          alignment: Alignment.topRight,
+                                          children: [
+
+                                            // image
+                                            PhotoView(
+                                              imageProvider: CachedNetworkImageProvider(
+                                                cafe.imageUrl??'',
                                               ),
                                             ),
-                                          );
-                                        },
-                                        placeholder: (context, url) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        },
-                                        errorWidget: (context, url, error) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image:CachedNetworkImageProvider(
-                                                  _coffeeController.noImage,
+
+                                            // group icon
+                                            SafeArea(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(20.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+
+                                                    // back button
+                                                    CircleAvatar(
+                                                      backgroundColor: Colors.white,
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.close,
+                                                          size: 25.0,
+                                                          color: Theme.of(context).primaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    // save image button
+                                                    const SizedBox(width: 15.0),
+                                                    GetBuilder<CoffeeController>(
+                                                      builder: (_){
+                                                        return CircleAvatar(
+                                                          backgroundColor: Colors.white,
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              _coffeeController.saveImage(cafe.imageUrl.toString());
+                                                            },
+                                                            icon: _coffeeController.isLoading
+                                                              ? CircularProgressIndicator()
+                                                              : Icon(
+                                                                Icons.save_alt,
+                                                                size: 25.0,
+                                                                color: Theme.of(context).primaryColor,
+                                                              )
+                                                          ),
+                                                        );
+                                                      }
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
+                                            )
+                                          ],
+                                        ));
+                                      },
+                                      child: SizedBox(
+                                        height: 170.0,
+                                        width: 110.0,
+                                        child: CachedNetworkImage(
+                                          imageUrl: cafe.imageUrl ??_coffeeController.noImage,
+                                          imageBuilder: (context, imageProvider) {
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:BorderRadius.circular(10.0),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: imageProvider,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          placeholder: (context, url) {
+                                            return const Center(
+                                              child: CircularProgressIndicator(),
+                                            );
+                                          },
+                                          errorWidget: (context, url, error) {
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image:CachedNetworkImageProvider(
+                                                    _coffeeController.noImage,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
                                     Expanded(
